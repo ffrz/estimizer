@@ -1,5 +1,6 @@
 @extends('layout.main', [
-  'title' => 'Profil Saya'
+  'title' => 'Profil Saya',
+  'nav_active' => 'user_profile',
 ])
 
 @section('content')

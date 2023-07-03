@@ -27,11 +27,13 @@
   <link rel="stylesheet" href="{{ asset('/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-bs4.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('/plugins/pace-progress/themes/blue/pace-theme-flash.css') }}">
   @yield('headstyles')
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="sidebar-mini layout-navbar-fixed layout-fixed pace-done sidebar-open">
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -54,24 +56,15 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-light-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="{{ url('/') }} " class="brand-link">
-        <span pl-3 class="brand-text font-weight-light"> <b>E</b>stimizer</span>
+      <a href="{{ url('/') }}" class="brand-link">
+        <img src="{{ asset('dist/img/logo.png') }}" alt="App Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light"><?= env('APP_NAME') ?></span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="{{ asset('/dist/img/avatar4.png') }}" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="{{ url('user/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
-          </div>
-        </div>
-
         @include('layout.sidenav')
       </div>
       <!-- /.sidebar -->
@@ -127,6 +120,7 @@
   <script src="{{ asset('/plugins/summernote/summernote-bs4.min.js') }}"></script>
   <!-- overlayScrollbars -->
   <script src="{{ asset('/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+  <script src="{{ asset('/plugins/pace-progress/pace.min.js') }}"></script>
   <!-- AdminLTE App -->
   @yield('footscripts');
   <script src="{{ asset('/dist/js/adminlte.js') }}"></script>

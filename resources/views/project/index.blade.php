@@ -1,11 +1,12 @@
 @extends('layout.main', [
     'title' => 'Proyek',
+    'nav_active' => 'project_list',
 ])
 
 @section('nav')
   <li class="nav-item">
-    <a class="btn btn-sm btn-primary" href="{{ url('/projects/create') }}">
-      <i class="fas fa-plus"></i> Proyek Baru
+    <a class="btn plus-btn btn-primary mr-2" href="{{ url('/projects/create') }}" title="Proyek Baru">
+      <i class="fas fa-plus"></i> 
     </a>
   </li>
 @endsection
@@ -61,13 +62,15 @@
                         <td>{{ $item->year }}</td>
                         <td>{{ $item->cost }}</td>
                         <td>
+                          
                           <form method="POST" action="{{ url('projects/delete/' . $item->id) }}">
                             @csrf
                             @method('DELETE')
-                            <a href="{{ url('projects/edit/' . $item->id) }}" class="btn btn-primary btn-xs"><i
-                                class="fas fa-pen"></i> Edit</a>
-                            <button onclick="return confirm_delete()" type="submit" class="btn btn-danger btn-xs"><i
-                                class="fas fa-trash-alt"></i> Hapus</button>
+                            <div class="btn-group mr-2">
+                              <a href="{{ url('projects/open/' . $item->id) }}" class="btn btn-default btn-sm"><i class="fas fa-eye" title="Buka"></i></a>
+                              <a href="{{ url('projects/edit/' . $item->id) }}" class="btn btn-default btn-sm"><i class="fas fa-edit" title="Edit"></i></a>
+                              <button onclick="return confirm_delete()" type="submit" class="btn btn-danger btn-sm" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+                            </div>
                           </form>
                         </td>
                       </tr>

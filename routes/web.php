@@ -1,0 +1,48 @@
+<?php
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/auth/login', 'login')->name('login');
+    Route::post('/auth/authenticate', 'authenticate')->name('auth.authenticate');;
+    Route::get('/auth/logout', 'logout')->name('logout');
+});
+
+Route::controller(RegistrationController::class)->group(function () {
+    Route::get('/registration/register', 'register')->name('register');
+    Route::post('/registration/process', 'process')->name('process_registration');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('user/profile', 'profile');
+        Route::post('user/update-profile', 'updateProfile');
+    });
+
+    Route::controller(ProjectController::class)->group(function(){
+        Route::get('/projects', 'index');
+        Route::get('/projects/create', 'create');
+        Route::get('/projects/edit/{id}', 'edit');
+        Route::post('/projects/store', 'store');
+        Route::put('/projects/update/{id}', 'update');
+        Route::delete('/projects/delete/{id}', 'delete');
+    });
+});

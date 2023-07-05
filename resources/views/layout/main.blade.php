@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-bs4.min.css') }}">
 
   <link rel="stylesheet" href="{{ asset('/plugins/pace-progress/themes/blue/pace-theme-flash.css') }}">
+  <link rel="stylesheet" href="{{ asset('/plugins/tabulator/css/tabulator.min.css') }}">
   @yield('headstyles')
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -121,6 +122,8 @@
   <!-- overlayScrollbars -->
   <script src="{{ asset('/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
   <script src="{{ asset('/plugins/pace-progress/pace.min.js') }}"></script>
+  <script src="{{ asset('/plugins/pace-progress/pace.min.js') }}"></script>
+  <script src="{{ asset('plugins/tabulator/js/tabulator.min.js') }}"></script>
   <!-- AdminLTE App -->
   @yield('footscripts');
   <script src="{{ asset('/dist/js/adminlte.js') }}"></script>
@@ -152,6 +155,7 @@
       toastr["error"]('{{ Session::get("error") }}');
     @endif
   </script>
+  @yield('footscript');
 </body>
 
 </html>

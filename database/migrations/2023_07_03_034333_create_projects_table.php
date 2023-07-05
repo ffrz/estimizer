@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 20)->unique();
             $table->string('name', 100);
             $table->string('address', 255)->default('');
             $table->string('owner', 100)->default('');
@@ -23,6 +22,8 @@ return new class extends Migration
             $table->decimal('tax')->default(0.);
             $table->text('notes')->default('');
             $table->timestamps();
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -25,14 +25,6 @@
                 @endif
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="code">Kode Proyek</label>
-                    <input type="text" class="form-control" id="code" name="code" placeholder="Kode Proyek"
-                      value="{{ isset($data) ? $data->code : old('code') }}">
-                    @error('code')
-                      <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                  <div class="form-group">
                     <label for="name">Nama Proyek</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Nama Proyek"
                       value="{{ isset($data) ? $data->name : old('name') }}">

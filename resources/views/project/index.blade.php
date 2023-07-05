@@ -42,7 +42,7 @@
                 <table class="table table-hover text-nowrap table-sm">
                   <thead>
                     <tr>
-                      <th>Kode</th>
+                      <th>No</th>
                       <th>Proyek</th>
                       <th>Owner</th>
                       <th>Tahun</th>
@@ -53,7 +53,7 @@
                   <tbody>
                     @foreach ($data as $item)
                       <tr>
-                        <td>{{ $item->code }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
                           {{ $item->name }}<br>
                           {{ $item->address }}
@@ -67,7 +67,7 @@
                             @csrf
                             @method('DELETE')
                             <div class="btn-group mr-2">
-                              <a href="{{ url('projects/open/' . $item->id) }}" class="btn btn-default btn-sm"><i class="fas fa-eye" title="Buka"></i></a>
+                              <a href="{{ url('projects/' . $item->id . '/tasks') }}" class="btn btn-default btn-sm"><i class="fas fa-eye" title="Buka"></i></a>
                               <a href="{{ url('projects/edit/' . $item->id) }}" class="btn btn-default btn-sm"><i class="fas fa-edit" title="Edit"></i></a>
                               <button onclick="return confirm_delete()" type="submit" class="btn btn-danger btn-sm" title="Hapus"><i class="fas fa-trash-alt"></i></button>
                             </div>

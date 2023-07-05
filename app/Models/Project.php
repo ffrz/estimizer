@@ -10,6 +10,11 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code', 'name', 'address', 'owner', 'year', 'tax', 'fee', 'notes', 'cost'
+        'name', 'address', 'owner', 'year', 'tax', 'fee', 'notes', 'cost', 'user_id'
     ];
+
+    public function taskCategories()
+    {
+        return $this->hasMany(TaskCategory::class);
+    }
 }

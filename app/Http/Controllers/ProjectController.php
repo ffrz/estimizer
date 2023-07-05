@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        $data = Project::get();
+        $data = Project::where('user_id', Auth::id())->get();
         return view('project.index', compact('data'));
     }
 
@@ -38,7 +39,6 @@ class ProjectController extends Controller
     public function save(Request $request, $id = null)
     {
         $validator = Validator::make($request->all(), [
-            'code' => 'required|unique:projects,code' . ($id ? ',' . $id : ''),
             'name' => 'required',
             'address' => 'required',
             'owner' => 'required',
@@ -47,7 +47,6 @@ class ProjectController extends Controller
             'tax' => 'nullable|decimal:0,100',
             'text' => 'nullable',
         ], [
-            'code.required' => 'Kode harus diisi.',
             'name.required' => 'Nama harus diisi.',
             'address.required' => 'Alamat harus diisi.',
             'owner.required' => 'Pemilik harus diisi.',
@@ -60,7 +59,6 @@ class ProjectController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $data['code'] = $request->code;
         $data['name'] = $request->name;
         $data['address'] = $request->address;
         $data['owner'] = $request->owner;
@@ -68,6 +66,7 @@ class ProjectController extends Controller
         $data['fee'] = $request->fee;
         $data['tax'] = $request->tax;
         $data['notes'] = $request->notes ? $request->notes : '';
+        $data['user_id'] = Auth::id();
 
         if ($id) {
             Project::whereId($id)->update($data);

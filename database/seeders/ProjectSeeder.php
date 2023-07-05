@@ -14,7 +14,6 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         Project::create([
-            'code' => 'PR-001',
             'name' => 'Pembangunan Rumah Tinggal 1 Lantai',
             'owner' => 'Bp. Bara',
             'address' => 'Blok Pangampiran Desa Cicanir Kec. Talaga Kab. Majalengka',
@@ -22,10 +21,10 @@ class ProjectSeeder extends Seeder
             'cost' => 0.0,
             'tax' => 11.0,
             'fee' => 10.0,
+            'user_id' => 1,
         ]);
 
         Project::create([
-            'code' => 'PR-002',
             'name' => 'Pembangunan Gedung TK Al-Atsary',
             'owner' => 'Ma\'had Al-Atsary Cikijing',
             'address' => 'Blok Malongpong',
@@ -33,10 +32,10 @@ class ProjectSeeder extends Seeder
             'cost' => 0.0,
             'tax' => 11.0,
             'fee' => 10.0,
+            'user_id' => 1,
         ]);
 
         Project::create([
-            'code' => 'PR-003',
             'name' => 'Pembangunan Gedung Banaat Al-Atsary',
             'owner' => 'Ma\'had Al-Atsary Cikijing',
             'address' => 'Blok Malongpong',
@@ -44,6 +43,7 @@ class ProjectSeeder extends Seeder
             'cost' => 0.0,
             'tax' => 11.0,
             'fee' => 10.0,
+            'user_id' => 2,
         ]);
     }
 }

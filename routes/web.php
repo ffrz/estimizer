@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,5 +46,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/projects/store', 'store');
         Route::put('/projects/update/{id}', 'update');
         Route::delete('/projects/delete/{id}', 'delete');
+    });
+
+    Route::controller(TaskController::class)->group(function(){
+        Route::get('/projects/{project_id}/tasks', 'index');
+    });
+
+    Route::controller(TaskCategoryController::class)->group(function(){
+        Route::get('/projects/{project_id}/task-categories', 'index');
+        Route::get('/projects/{project_id}/task-categories/add', 'add');
+        Route::get('/projects/{project_id}/task-categories/edit/{id}', 'edit');
+        Route::post('/projects/{project_id}/task-categories/update', 'update');
+        Route::put('/projects/{project_id}/task-categories/update/{id}', 'update');
+        Route::post('/projects/{project_id}/task-categories/do/{id}', 'process');
     });
 });

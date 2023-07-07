@@ -18,7 +18,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="post" action="{{ url('user/profile') }}">
+              <form method="post" action="{{ url('user-profile') }}">
                 @csrf
                 @method('PATCH')
                 <div class="card-body">
@@ -52,7 +52,6 @@
                   </div>
                 </div>
                 <!-- /.card-body -->
-
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>

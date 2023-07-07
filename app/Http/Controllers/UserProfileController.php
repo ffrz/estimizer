@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class UserProfileController extends Controller
 {
     public function show()
     {
         $data = User::find(Auth::id());
-        return view('user.profile.edit', compact('data'));
+        return view('user-profile.editor', compact('data'));
     }
 
     public function edit()
     {
         $data = User::find(Auth::id());
-        return view('user.profile.edit', compact('data'));
+        return view('user-profile.editor', compact('data'));
     }
 
     public function update(Request $request)
@@ -47,6 +47,6 @@ class UserController extends Controller
         }
 
         User::whereId($id)->update($data);
-        return redirect()->to('/user/profile')->with('success', 'Profil telah diperbarui.');
+        return redirect()->to('/user-profile')->with('success', 'Profil telah diperbarui.');
     }
 }

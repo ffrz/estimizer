@@ -10,13 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function profile()
+    public function show()
     {
         $data = User::find(Auth::id());
-        return view('user.profile', compact('data'));
+        return view('user.profile.edit', compact('data'));
     }
 
-    public function updateProfile(Request $request)
+    public function edit()
+    {
+        $data = User::find(Auth::id());
+        return view('user.profile.edit', compact('data'));
+    }
+
+    public function update(Request $request)
     {
         $id = Auth::id();
         $validator = Validator::make($request->all(), [
@@ -41,7 +47,6 @@ class UserController extends Controller
         }
 
         User::whereId($id)->update($data);
-
         return redirect()->to('/user/profile')->with('success', 'Profil telah diperbarui.');
     }
 }

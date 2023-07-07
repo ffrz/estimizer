@@ -18,8 +18,9 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="post" action="{{ url('user/update-profile') }}">
+              <form method="post" action="{{ url('user/profile') }}">
                 @csrf
+                @method('PATCH')
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Nama Lengkap</label>

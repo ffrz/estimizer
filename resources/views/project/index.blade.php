@@ -63,12 +63,12 @@
                         <td>{{ $item->cost }}</td>
                         <td>
                           
-                          <form method="POST" action="{{ url('projects/delete/' . $item->id) }}">
+                          <form method="POST" action="{{ url("projects/{$item->id}") }}">
                             @csrf
                             @method('DELETE')
                             <div class="btn-group mr-2">
-                              <a href="{{ url('projects/' . $item->id . '/tasks') }}" class="btn btn-default btn-sm"><i class="fas fa-eye" title="Buka"></i></a>
-                              <a href="{{ url('projects/edit/' . $item->id) }}" class="btn btn-default btn-sm"><i class="fas fa-edit" title="Edit"></i></a>
+                              <a href="{{ url("projects/{$item->id}/tasks") }}" class="btn btn-default btn-sm"><i class="fas fa-eye" title="Buka"></i></a>
+                              <a href="{{ url("projects/{$item->id}") }}" class="btn btn-default btn-sm"><i class="fas fa-edit" title="Edit"></i></a>
                               <button onclick="return confirm_delete()" type="submit" class="btn btn-danger btn-sm" title="Hapus"><i class="fas fa-trash-alt"></i></button>
                             </div>
                           </form>

@@ -18,7 +18,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="post" action="{{ isset($data->id) ? url('/projects/update', ['id' => $data->id]) : url('/projects/store') }}">
+              <form method="post" action="{{ isset($data->id) ? url("projects/$data->id") : url('/projects') }}">
                 @csrf
                 @if (isset($data->id))
                   @method('PUT')

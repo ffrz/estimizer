@@ -34,19 +34,9 @@ Route::controller(RegistrationController::class)->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::controller(UserController::class)->group(function () {
-        Route::get('user/profile', 'profile');
-        Route::post('user/update-profile', 'updateProfile');
-    });
+    Route::singleton('user/profile', UserController::class);
 
-    Route::controller(ProjectController::class)->group(function(){
-        Route::get('/projects', 'index');
-        Route::get('/projects/create', 'create');
-        Route::get('/projects/edit/{id}', 'edit');
-        Route::post('/projects/store', 'store');
-        Route::put('/projects/update/{id}', 'update');
-        Route::delete('/projects/delete/{id}', 'delete');
-    });
+    Route::resource('projects', ProjectController::class);
 
     Route::controller(TaskController::class)->group(function(){
         Route::get('/projects/{project_id}/tasks', 'index');

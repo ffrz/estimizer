@@ -20,7 +20,7 @@ class ProjectController extends Controller
         return view('project.editor');
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $data = Project::find($id);
         return view('project.editor', compact('data'));
@@ -80,13 +80,14 @@ class ProjectController extends Controller
         return redirect()->to('/projects')->with('success', $message);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $project = Project::find($id);
         if ($project) {
             $project->delete();
+            return redirect()->to('/projects')->with('success', 'Rekaman proyek telah dihapus.');
         }
-        
-        return redirect()->to('/projects')->with('success', 'Rekaman proyek telah dihapus.');
+
+        return redirect()->to('/projects')->with('warning', 'Proyek tidak ditemukan.');
     }
 }

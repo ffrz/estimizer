@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Library\AhspTaskController;
+use App\Http\Controllers\Library\BaseItemCategoryController;
+use App\Http\Controllers\Library\BaseItemController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\UserProfileController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +41,8 @@ Route::middleware(['auth'])->group(function () {
     Route::singleton('user-profile', UserProfileController::class);
 
     Route::resource('projects', ProjectController::class);
+
+    Route::resource('library/base-item-categories', BaseItemCategoryController::class);
 
     Route::controller(TaskController::class)->group(function(){
         Route::get('/projects/{project_id}/tasks', 'index');

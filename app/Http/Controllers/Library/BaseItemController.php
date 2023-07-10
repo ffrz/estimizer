@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Library;
 
 use App\Http\Controllers\Controller;
+use App\Models\Library\BaseItem;
 use App\Models\Library\BaseItemCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class BaseItemCategoryController extends Controller
+class BaseItemController extends Controller
 {
-    protected $redirectUrl = '/library/base-item-categories';
+    protected $redirectUrl = '/library/base-items';
+
     public function index()
     {
-        $categories = BaseItemCategory::orderBy('name', 'asc')->get();
-        return view('library.base-item-category.index', compact('categories'));
+        $items = BaseItem::orderBy('name', 'asc')->get();
+        return view('library.base-item.index', compact('items'));
     }
 
     public function create()
@@ -23,8 +25,9 @@ class BaseItemCategoryController extends Controller
 
     public function show($id = null)
     {
-        $data = BaseItemCategory::find($id);
-        return view('library.base-item-category.editor', compact('data'));
+        $data = BaseItem::find($id);
+        $categories = BaseItemCategory::orderBy('name', 'asc')->get();
+        return view('library.base-item.editor', compact('data', 'categories'));
     }
 
     public function store(Request $request)
@@ -40,10 +43,18 @@ class BaseItemCategoryController extends Controller
     public function save(Request $request, $id = null)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:lib_base_item_categories' . ($id ? ",id,$id" : ''),
+            'name' => 'required|unique:lib_base_items' . ($id ? ",id,$id" : ''),
+            'uom' => 'required',
+            'brand' => 'required',
+            'specification' => 'required',
+            'category_id' => 'required',
         ], [
-            'name.required' => 'Nama harus diisi.',
-            'name.unique' => 'Nama harus unik.',
+            'name.required' => 'Nama item harus diisi.',
+            'name.unique' => 'Nama item harus unik.',
+            'uom.required' => 'Satuan harus diisi.',
+            'brand.required' => 'Merk harus diisi.',
+            'specification.required' => 'Spesifikasi harus diisi.',
+            'category_id.required' => 'Silahkan pilih kategori.',
         ]);
 
         if ($validator->fails()) {
@@ -51,13 +62,19 @@ class BaseItemCategoryController extends Controller
         }
 
         $data['name'] = $request->name;
+        $data['uom'] = $request->uom;
+        $data['brand'] = $request->brand;
+        $data['specification'] = $request->specification;
+        if ($request->category_id) {
+            $data['category_id'] = $request->category_id;
+        }
 
         if ($id) {
-            BaseItemCategory::whereId($id)->update($data);
+            BaseItem::whereId($id)->update($data);
             $message = 'Kategori telah diperbarui.';
         }
         else {
-            BaseItemCategory::create($data);
+            BaseItem::create($data);
             $message = 'Kategori telah disimpan.';
         }
 
@@ -66,7 +83,7 @@ class BaseItemCategoryController extends Controller
 
     public function destroy($id)
     {
-        $item = BaseItemCategory::find($id);
+        $item = BaseItem::find($id);
         if ($item) {
             $item->delete();
             return redirect()->to($this->redirectUrl)->with('success', 'Kategori proyek telah dihapus.');

@@ -1,5 +1,5 @@
 @extends('layout.main', [
-    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Kategori',
+    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Item',
 ])
 
 @section('content')

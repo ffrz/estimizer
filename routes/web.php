@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AhspMgr\TaskCategoryController as AhspTaskCategoryController;
+use App\Http\Controllers\AhspMgr\TaskDetailController as AhspTaskDetailController;
 use App\Http\Controllers\AhspMgr\TaskController as AhspTaskController;
 use App\Http\Controllers\AhspMgr\TaskGroupController;
 use App\Http\Controllers\AhspMgr\BaseItemCategoryController;
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
 
     Route::resource('ahsp-mgr/tasks', AhspTaskController::class);
+    Route::resource('ahsp-mgr/tasks/{task_id}/details', AhspTaskDetailController::class);
     Route::resource('ahsp-mgr/task-categories', AhspTaskCategoryController::class);
     Route::resource('ahsp-mgr/task-groups', TaskGroupController::class);
     Route::resource('ahsp-mgr/base-item-categories', BaseItemCategoryController::class);

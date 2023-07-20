@@ -30,6 +30,8 @@
 
   <link rel="stylesheet" href="{{ asset('/plugins/pace-progress/themes/blue/pace-theme-flash.css') }}">
   <link rel="stylesheet" href="{{ asset('/plugins/tabulator/css/tabulator.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/plugins/select2-bootstrap4-theme/css/select2-bootstrap4-theme.min.css') }}">
   @yield('headstyles')
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -60,7 +62,8 @@
     <aside class="main-sidebar sidebar-light-primary elevation-4">
       <!-- Brand Logo -->
       <a href="{{ url('/') }}" class="brand-link">
-        <img src="{{ asset('dist/img/logo.png') }}" alt="App Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('dist/img/logo.png') }}" alt="App Logo" class="brand-image img-circle elevation-3"
+          style="opacity: .8">
         <span class="brand-text font-weight-light"><?= env('APP_NAME') ?></span>
       </a>
 
@@ -123,7 +126,7 @@
   <script src="{{ asset('/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
   <script src="{{ asset('/plugins/pace-progress/pace.min.js') }}"></script>
   <script src="{{ asset('/plugins/pace-progress/pace.min.js') }}"></script>
-  <script src="{{ asset('plugins/tabulator/js/tabulator.min.js') }}"></script>
+  <script src="{{ asset('/plugins/select2/js/select2.min.js') }}"></script>
   <!-- AdminLTE App -->
   @yield('footscripts');
   <script src="{{ asset('/dist/js/adminlte.js') }}"></script>
@@ -146,14 +149,25 @@
       "hideMethod": "fadeOut"
     }
     @if (Session::has('success'))
-      toastr["info"]('{{ Session::get("success") }}');
+      toastr["info"]('{{ Session::get('success') }}');
     @endif
     @if (Session::has('warning'))
-      toastr["warning"]('{{ Session::get("warning") }}');
+      toastr["warning"]('{{ Session::get('warning') }}');
     @endif
     @if (Session::has('error'))
-      toastr["error"]('{{ Session::get("error") }}');
+      toastr["error"]('{{ Session::get('error') }}');
     @endif
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+      $('.select2').select2();
+      $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+      });
+      // $('.select2').select2({
+      //   theme: 'bootstrap4'
+      // });
+
+    });
   </script>
   @yield('footscript');
 </body>

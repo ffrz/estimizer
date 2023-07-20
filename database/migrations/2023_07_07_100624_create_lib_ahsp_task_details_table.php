@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('lib_ahsp_task_details', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('task_id')->unsigned();
+            $table->bigInteger('item_id')->unsigned();
+            $table->decimal('coefficient', 8, 4, true)->required();
+            $table->foreign('task_id')->references('id')->on('lib_ahsp_tasks');
+            $table->foreign('item_id')->references('id')->on('lib_base_items');
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class BaseItemController extends Controller
             $query->where('group_id', '=', $group_id);
         }
         $query->where('type', '=', $type);
-        $items = $query->orderBy('type', 'asc')->get();
+        $items = $query->orderBy('type', 'asc')->orderBy('name', 'asc')->get();
         
         return view('ahsp-mgr.base-item.index', compact('items', 'groups', 'group_id', 'type'));
     }
@@ -76,14 +76,14 @@ class BaseItemController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
+        $data['type'] = $request->type;
+        $data['group_id'] = $request->group_id;
         $data['name'] = $request->name;
         $data['uom'] = $request->uom;
         $data['brand'] = $request->brand;
         $data['specification'] = $request->specification;
         $data['price'] = $request->price;
-        if ($request->category_id) {
-            $data['category_id'] = $request->category_id;
-        }
+        $data['category_id'] = $request->category_id;
 
         if ($id) {
             BaseItem::whereId($id)->update($data);

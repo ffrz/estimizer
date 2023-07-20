@@ -3,6 +3,7 @@
 namespace App\Models\AhspMgr;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
@@ -14,4 +15,20 @@ class Task extends Model
     ];
 
     protected $table = 'lib_ahsp_tasks';
+    protected $with = ['group', 'category'];
+
+    public function details()
+    {
+        return $this->hasMany(TaskDetail::class);
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(TaskGroup::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(TaskCategory::class);
+    }
 }

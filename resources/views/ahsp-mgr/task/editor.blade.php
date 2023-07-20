@@ -1,5 +1,5 @@
 @extends('layout.main', [
-    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Pekerjaan',
+    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Item',
 ])
 
 @section('content')
@@ -13,6 +13,9 @@
           <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">{{ isset($data) ? 'Edit' : 'Tambah' }} Item</h3>
+              </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form method="post"
@@ -42,7 +45,8 @@
                       <?php $selectedCategoryId = isset($data->category_id) ? $data->category_id : old('category_id'); ?>
                       <option value="">-- Pilih Kategori --</option>
                       @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $selectedCategoryId == $category->id ? 'selected' : '' }}>
+                        <option value="{{ $category->id }}"
+                          {{ $selectedCategoryId == $category->id ? 'selected' : '' }}>
                           {{ $category->name }}</option>
                       @endforeach
                     </select>
@@ -52,7 +56,7 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Nama Pekerjaan</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama Item"
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama Pekerjaan"
                       value="{{ isset($data) ? $data->name : old('name') }}">
                     @error('name')
                       <small class="text-danger">{{ $message }}</small>

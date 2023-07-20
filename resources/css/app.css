@@ -109,3 +109,7 @@ label.required {
 .toast-top-right {
     top: 65px;
 }
+
+.select2-container .select2-selection--single {
+    height: calc(2.25rem + 2px);
+}

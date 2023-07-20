@@ -68,7 +68,7 @@
                               @csrf
                               @method('DELETE')
                               <div class="btn-group">
-                                <a href="{{ url("/ahsp-mgr/task-details/$item->id") }}"
+                                <a href="{{ url("/ahsp-mgr/tasks/$item->id/details") }}"
                                   class="btn btn-xs btn-default" title="Ubah Rincian"><i class="fa fa-eye"></i></a>
                                 <a href="{{ url("/ahsp-mgr/tasks/$item->id") }}"
                                   class="btn btn-xs btn-default" title="Ubah Item"><i class="fa fa-edit"></i></a>

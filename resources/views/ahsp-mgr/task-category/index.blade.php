@@ -1,12 +1,12 @@
 @extends('layout.main', [
-    'title' => 'Item Dasar',
+    'title' => 'Kelola Kategori AHSP',
     'nav_active' => 'manage_task_categories',
 ])
 
 @section('nav')
   <li class="nav-item">
-    <a class="btn plus-btn btn-primary mr-2" href="{{ url("/library/base-items/create") }}"
-      title="Buat Item Baru">
+    <a class="btn plus-btn btn-primary mr-2" href="{{ url("/ahsp-mgr/task-categories/create") }}"
+      title="Buat Kategori Baru">
       <i class="fas fa-plus"></i>
     </a>
   </li>
@@ -41,30 +41,24 @@
                       <tr>
                         <th>No</th>
                         <th>Uraian</th>
-                        <th>Satuan</th>
-                        <th>Merk</th>
-                        <th>Spesifikasi</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($items as $item)
+                      @foreach ($categories as $category)
                         <tr>
                           <td class="text-right">{{ $loop->iteration }}</td>
-                          <td>{{ $item->name }}</td>
-                          <td>{{ $item->uom }}</td>
-                          <td>{{ $item->brand }}</td>
-                          <td>{{ $item->specification }}</td>
+                          <td>{{ $category->name }}</td>
                           <td>
-                            <form class="inline" method="POST"
-                              action="{{ url("/library/base-items/$item->id") }}">
+                            <form class="inline" method="POST" onsubmit="return confirm_delete()"
+                              action="{{ url("/ahsp-mgr/task-categories/$category->id") }}">
                               @csrf
                               @method('DELETE')
                               <div class="btn-group">
-                                <a href="{{ url("/library/base-items/$item->id") }}"
-                                  class="btn btn-xs btn-default" title="Ubah Item"><i class="fa fa-edit"></i></a>
-                                <button class="btn btn-xs btn-danger" name="do" value="delete" title="Hapus Item"
-                                  type="submit" onclick="return confirm_delete()"><i class="fa fa-trash"></i></button>
+                                <a href="{{ url("/ahsp-mgr/task-categories/$category->id") }}"
+                                  class="btn btn-xs btn-default" title="Ubah Kategori"><i class="fa fa-edit"></i></a>
+                                <button class="btn btn-xs btn-danger" value="delete" title="Hapus Kategori"
+                                  type="submit"><i class="fa fa-trash"></i></button>
                               </div>
                             </form>
                           </td>
@@ -93,5 +87,3 @@
   </script>
 @endsection
 
-@section('footscript')
-@endsection

@@ -1,21 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Library;
+namespace App\Http\Controllers\AhspMgr;
 
 use App\Http\Controllers\Controller;
-use App\Models\Library\BaseItem;
-use App\Models\Library\BaseItemCategory;
+use App\Models\AhspMgr\BaseItem;
+use App\Models\AhspMgr\BaseItemCategory;
+use App\Models\AhspMgr\BaseItemGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class BaseItemController extends Controller
 {
-    protected $redirectUrl = '/library/base-items';
+    protected $redirectUrl = '/ahsp-mgr/base-items';
 
-    public function index()
+    public function index(Request $request)
     {
-        $items = BaseItem::orderBy('name', 'asc')->get();
-        return view('library.base-item.index', compact('items'));
+        $query = BaseItem::query();
+        $groups = BaseItemGroup::orderBy('name', 'asc')->get();
+        $group_id = (int)$request->group_id;
+        $type = (int)$request->type;
+        if ($group_id > 0) {
+            $query->where('group_id', '=', $group_id);
+        }
+        $query->where('type', '=', $type);
+        $items = $query->orderBy('type', 'asc')->get();
+        
+        return view('ahsp-mgr.base-item.index', compact('items', 'groups', 'group_id', 'type'));
     }
 
     public function create()
@@ -27,7 +37,8 @@ class BaseItemController extends Controller
     {
         $data = BaseItem::find($id);
         $categories = BaseItemCategory::orderBy('name', 'asc')->get();
-        return view('library.base-item.editor', compact('data', 'categories'));
+        $groups = BaseItemGroup::orderBy('name', 'asc')->get();
+        return view('ahsp-mgr.base-item.editor', compact('data', 'categories', 'groups'));
     }
 
     public function store(Request $request)
@@ -48,6 +59,8 @@ class BaseItemController extends Controller
             'brand' => 'required',
             'specification' => 'required',
             'category_id' => 'required',
+            'group_id' => 'required',
+            'price' => 'required',
         ], [
             'name.required' => 'Nama item harus diisi.',
             'name.unique' => 'Nama item harus unik.',
@@ -55,6 +68,8 @@ class BaseItemController extends Controller
             'brand.required' => 'Merk harus diisi.',
             'specification.required' => 'Spesifikasi harus diisi.',
             'category_id.required' => 'Silahkan pilih kategori.',
+            'group_id.required' => 'Silahkan pilih grup.',
+            'price.required' => 'Harga harus diisi.',
         ]);
 
         if ($validator->fails()) {
@@ -65,17 +80,18 @@ class BaseItemController extends Controller
         $data['uom'] = $request->uom;
         $data['brand'] = $request->brand;
         $data['specification'] = $request->specification;
+        $data['price'] = $request->price;
         if ($request->category_id) {
             $data['category_id'] = $request->category_id;
         }
 
         if ($id) {
             BaseItem::whereId($id)->update($data);
-            $message = 'Kategori telah diperbarui.';
+            $message = 'Item telah diperbarui.';
         }
         else {
             BaseItem::create($data);
-            $message = 'Kategori telah disimpan.';
+            $message = 'Item telah disimpan.';
         }
 
         return redirect()->to($this->redirectUrl)->with('success', $message);
@@ -86,9 +102,9 @@ class BaseItemController extends Controller
         $item = BaseItem::find($id);
         if ($item) {
             $item->delete();
-            return redirect()->to($this->redirectUrl)->with('success', 'Kategori proyek telah dihapus.');
+            return redirect()->to($this->redirectUrl)->with('success', 'Item telah dihapus.');
         }
 
-        return redirect()->to($this->redirectUrl)->with('warning', 'Kategori tidak ditemukan.');
+        return redirect()->to($this->redirectUrl)->with('warning', 'Item tidak ditemukan.');
     }
 }

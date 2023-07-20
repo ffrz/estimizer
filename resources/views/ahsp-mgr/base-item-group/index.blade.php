@@ -1,12 +1,12 @@
 @extends('layout.main', [
-    'title' => 'Kategori Item Dasar',
-    'nav_active' => 'manage_task_categories',
+    'title' => 'Grup Item Dasar',
+    'nav_active' => 'ahsp-mgr_manage_base_item_groups',
 ])
 
 @section('nav')
   <li class="nav-item">
-    <a class="btn plus-btn btn-primary mr-2" href="{{ url("/library/base-item-categories/create") }}"
-      title="Buat Kategori Baru">
+    <a class="btn plus-btn btn-primary mr-2" href="{{ url("/ahsp-mgr/base-item-groups/create") }}"
+      title="Buat Grup Baru">
       <i class="fas fa-plus"></i>
     </a>
   </li>
@@ -20,50 +20,38 @@
         <div class="row">
           <div class="col-12">
             <div class="card mt-0">
-              <div class="card-header">
-                <h3 class="card-title"></h3>
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <div>
                   <table class="table table-hover text-nowrap table-sm">
                     <thead>
                       <tr>
-                        <th>No</th>
+                        <th style="width:5%">No</th>
                         <th>Uraian</th>
-                        <th>Aksi</th>
+                        <th style="width:5%">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($categories as $category)
+                      @forelse ($groups as $group)
                         <tr>
                           <td class="text-right">{{ $loop->iteration }}</td>
-                          <td>{{ $category->name }}</td>
+                          <td>{{ $group->name }}</td>
                           <td>
-                            <form class="inline" method="POST"
-                              action="{{ url("/library/base-item-categories/$category->id") }}">
+                            <form class="inline" method="POST" onsubmit="return confirm_delete()"
+                              action="{{ url("/ahsp-mgr/base-item-groups/$group->id") }}">
                               @csrf
                               @method('DELETE')
                               <div class="btn-group">
-                                <a href="{{ url("/library/base-item-categories/$category->id") }}"
-                                  class="btn btn-xs btn-default" title="Ubah Kategori"><i class="fa fa-edit"></i></a>
-                                <button class="btn btn-xs btn-danger" name="do" value="delete" title="Hapus Kategori"
+                                <a href="{{ url("/ahsp-mgr/base-item-groups/$group->id") }}"
+                                  class="btn btn-xs btn-default" title="Ubah Grup"><i class="fa fa-edit"></i></a>
+                                <button class="btn btn-xs btn-danger" name="do" value="delete" title="Hapus Grup"
                                   type="submit"><i class="fa fa-trash"></i></button>
                               </div>
                             </form>
                           </td>
                         </tr>
-                      @endforeach
+                      @empty
+                        <tr><td colspan="3" class="text-center">Belum ada item.</td></tr>
+                      @endforelse
                     </tbody>
                   </table>
                 </div>

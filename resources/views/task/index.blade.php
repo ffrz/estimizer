@@ -5,7 +5,7 @@
 
 @section('nav')
   <li class="nav-item">
-    <a class="btn plus-btn btn-primary mr-2" href="{{ url('/projects/create') }}" title="Proyek Baru">
+    <a class="btn plus-btn btn-primary mr-2" href="{{ url("/projects/$project->id/tasks/add") }}" title="Tambah Pekerjaan">
       <i class="fas fa-plus"></i>
     </a>
   </li>

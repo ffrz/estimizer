@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Library\BaseItemCategoryController;
-use App\Http\Controllers\Library\BaseItemController;
+use App\Http\Controllers\AhspMgr\TaskCategoryController as AhspTaskCategoryController;
+use App\Http\Controllers\AhspMgr\TaskController as AhspTaskController;
+use App\Http\Controllers\AhspMgr\TaskGroupController;
+use App\Http\Controllers\AhspMgr\BaseItemCategoryController;
+use App\Http\Controllers\AhspMgr\BaseItemController;
+use App\Http\Controllers\AhspMgr\BaseItemGroupController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\TaskController;
@@ -40,8 +44,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('projects', ProjectController::class);
 
-    Route::resource('library/base-item-categories', BaseItemCategoryController::class);
-    Route::resource('library/base-items', BaseItemController::class);
+    Route::resource('ahsp-mgr/tasks', AhspTaskController::class);
+    Route::resource('ahsp-mgr/task-categories', AhspTaskCategoryController::class);
+    Route::resource('ahsp-mgr/task-groups', TaskGroupController::class);
+    Route::resource('ahsp-mgr/base-item-categories', BaseItemCategoryController::class);
+    Route::resource('ahsp-mgr/base-items', BaseItemController::class);
+    Route::resource('ahsp-mgr/base-item-groups', BaseItemGroupController::class);
 
     Route::controller(TaskController::class)->group(function(){
         Route::get('/projects/{project_id}/tasks', 'index');
@@ -55,4 +63,5 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/projects/{project_id}/task-categories/update/{id}', 'update');
         Route::post('/projects/{project_id}/task-categories/do/{id}', 'process');
     });
+
 });

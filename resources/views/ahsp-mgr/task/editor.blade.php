@@ -1,5 +1,5 @@
 @extends('layout.main', [
-    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Item',
+    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Pekerjaan',
 ])
 
 @section('content')
@@ -13,18 +13,29 @@
           <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">{{ isset($data) ? 'Edit' : 'Tambah' }} Item</h3>
-              </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form method="post"
-                action="{{ isset($data->id) ? url("/library/base-items/{$data->id}") : url('/library/base-items') }}">
+                action="{{ isset($data->id) ? url("/ahsp-mgr/tasks/{$data->id}") : url('/ahsp-mgr/tasks') }}">
                 @csrf
                 @if (isset($data->id))
                   @method('PUT')
                 @endif
                 <div class="card-body">
+                  <div class="form-group">
+                    <label for="group_id">Grup</label>
+                    <select name="group_id" id="group_id" class="form-control">
+                      <?php $selectedGroupId = isset($data->group_id) ? $data->group_id : old('group_id'); ?>
+                      <option value="">-- Pilih Grup --</option>
+                      @foreach ($groups as $group)
+                        <option value="{{ $group->id }}" {{ $selectedGroupId == $group->id ? 'selected' : '' }}>
+                          {{ $group->name }}</option>
+                      @endforeach
+                    </select>
+                    @error('group_id')
+                      <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
                   <div class="form-group">
                     <label for="category_id">Kategori</label>
                     <select name="category_id" id="category_id" class="form-control">
@@ -40,7 +51,7 @@
                     @enderror
                   </div>
                   <div class="form-group">
-                    <label for="name">Nama Item</label>
+                    <label for="name">Nama Pekerjaan</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Nama Item"
                       value="{{ isset($data) ? $data->name : old('name') }}">
                     @error('name')
@@ -52,22 +63,6 @@
                     <input type="text" class="form-control" id="uom" name="uom" placeholder="Satuan"
                       value="{{ isset($data) ? $data->uom : old('uom') }}">
                     @error('uom')
-                      <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label for="brand">Merk</label>
-                    <input type="text" class="form-control" id="brand" name="brand" placeholder="Merk"
-                      value="{{ isset($data) ? $data->brand : old('brand') }}">
-                    @error('brand')
-                      <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label for="specification">Spesifikasi</label>
-                    <input type="text" class="form-control" id="specification" name="specification"
-                      placeholder="Spesifikasi" value="{{ isset($data) ? $data->specification : old('specification') }}">
-                    @error('specification')
                       <small class="text-danger">{{ $message }}</small>
                     @enderror
                   </div>

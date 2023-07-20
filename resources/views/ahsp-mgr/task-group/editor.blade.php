@@ -1,5 +1,5 @@
 @extends('layout.main', [
-    'title' => (isset($data) ? 'Edit' : 'Tambah') . ' Item',
+    'title' => 'Grup AHSP',
 ])
 
 @section('content')
@@ -14,21 +14,21 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">{{ isset($data) ? 'Edit' : 'Tambah' }} Kategori</h3>
+                <h3 class="card-title">{{ isset($data) ? 'Edit' : 'Tambah' }} Grup AHSP</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form method="post"
-                action="{{ isset($data->id) ? url("/library/base-item-categories/{$data->id}") : url("/library/base-item-categories") }}">
+                action="{{ isset($data->id) ? url("/ahsp-mgr/task-groups/{$data->id}") : url("/ahsp-mgr/task-groups") }}">
                 @csrf
                 @if (isset($data->id))
                   @method('PUT')
                 @endif
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="name">Nama Kategori</label>
+                    <label for="name">Nama Grup</label>
                     <input type="text" class="form-control" id="name" name="name"
-                      placeholder="Nama Kategori" value="{{ isset($data) ? $data->name : old('name') }}">
+                      placeholder="Nama Grup" value="{{ isset($data) ? $data->name : old('name') }}">
                     @error('name')
                       <small class="text-danger">{{ $message }}</small>
                     @enderror

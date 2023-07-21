@@ -39,7 +39,7 @@
                   </div>
                   <div class="form-group">
                     <label for="group_id">Grup</label>
-                    <select name="group_id" id="group_id" class="form-control">
+                    <select name="group_id" id="group_id" class="form-control select2">
                       <?php $selectedGroupId = isset($data->group_id) ? $data->group_id : old('group_id'); ?>
                       <option value="">-- Pilih Grup --</option>
                       @foreach ($groups as $group)
@@ -53,7 +53,7 @@
                   </div>
                   <div class="form-group">
                     <label for="category_id">Kategori</label>
-                    <select name="category_id" id="category_id" class="form-control">
+                    <select name="category_id" id="category_id" class="form-control select2">
                       <?php $selectedCategoryId = isset($data->category_id) ? $data->category_id : old('category_id'); ?>
                       <option value="">-- Pilih Kategori --</option>
                       @foreach ($categories as $category)
@@ -122,3 +122,11 @@
     <!-- /.content -->
   </div>
 @endsection
+@section('footscript')
+<script>
+  $(document).ready(function() {
+    $('#type').focus();
+  });
+</script>
+@endsection
+

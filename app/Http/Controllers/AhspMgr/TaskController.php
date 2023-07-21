@@ -54,11 +54,13 @@ class TaskController extends Controller
             'group_id' => 'required',
             'category_id' => 'required',
             'uom' => 'required',
+            'source' => 'required',
         ], [
             'name.required' => 'Nama pekerjaan harus diisi.',
             'group_id.required' => 'Grup harus diisi.',
             'category_id.required' => 'Kategori harus diisi.',
-            'uom.required' => 'Satuan  harus diisi.',
+            'uom.required' => 'Satuan harus diisi.',
+            'source.required' => 'Sumber harus diisi.',
         ]);
 
         if ($validator->fails()) {
@@ -69,6 +71,7 @@ class TaskController extends Controller
         $data['group_id'] = $request->group_id;
         $data['category_id'] = $request->category_id;
         $data['uom'] = $request->uom;
+        $data['source'] = $request->source;
 
         if ($id) {
             Task::whereId($id)->update($data);

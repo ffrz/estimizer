@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            ProjectSeeder::class,
-            TaskSeeder::class,
-            BaseItemCategorySeeder::class,
+            // ProjectSeeder::class,
+            // TaskSeeder::class,
+            // BaseItemCategorySeeder::class,
             BaseItemGroupSeeder::class,
-            BaseItemSeeder::class,
-            AhspTaskCategorySeeder::class,
+            // BaseItemSeeder::class,
+            // AhspTaskCategorySeeder::class,
             AhspTaskGroupSeeder::class
         ]);
     }

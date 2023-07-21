@@ -11,7 +11,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'uom', 'group_id', 'category_id'
+        'name', 'uom', 'group_id', 'category_id', 'source'
     ];
 
     protected $table = 'lib_ahsp_tasks';

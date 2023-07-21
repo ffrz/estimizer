@@ -53,6 +53,7 @@
                         <th style="width:5%">No</th>
                         <th>Uraian</th>
                         <th style="width:10%">Satuan</th>
+                        <th>Sumber</th>
                         <th style="width:5%">Aksi</th>
                       </tr>
                     </thead>
@@ -62,6 +63,7 @@
                           <td class="text-right">{{ $loop->iteration }}</td>
                           <td>{{ $item->name }}</td>
                           <td>{{ $item->uom }}</td>
+                          <td>{{ $item->source }}</td>
                           <td>
                             <form class="inline" method="POST"
                               action="{{ url("/ahsp-mgr/tasks/$item->id") }}">

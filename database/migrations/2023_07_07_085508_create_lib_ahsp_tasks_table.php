@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('uom', 50);
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('group_id')->unsigned();
+            $table->string('source', 200);
             $table->foreign('category_id')->references('id')->on('lib_ahsp_task_categories');
             $table->foreign('group_id')->references('id')->on('lib_ahsp_task_groups');
             $table->timestamps();

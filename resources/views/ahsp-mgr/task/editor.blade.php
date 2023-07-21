@@ -70,6 +70,14 @@
                       <small class="text-danger">{{ $message }}</small>
                     @enderror
                   </div>
+                  <div class="form-group">
+                    <label for="source">Sumber</label>
+                    <input type="text" class="form-control" id="source" name="source" placeholder="Sumber"
+                      value="{{ isset($data) ? $data->source : old('source') }}">
+                    @error('source')
+                      <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

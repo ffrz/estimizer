@@ -12,6 +12,6 @@ class BaseItem extends Model
     protected $table = 'lib_base_items';
 
     protected $fillable = [
-        'name', 'uom', 'specification', 'brand', 'category_id', 'price', 'group_id', 'type'
+        'name', 'uom', 'specification', 'brand', 'category_id', 'price', 'group_id', 'type', 'source'
     ];
 }

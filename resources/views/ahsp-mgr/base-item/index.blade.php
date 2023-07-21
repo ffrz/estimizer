@@ -57,10 +57,11 @@
                       <tr>
                         <th style="width:5%">No</th>
                         <th>Uraian</th>
-                        <th style="width:10%">Satuan</th>
                         <th style="width:10%">Harga (Rp)</th>
+                        <th style="width:10%">Satuan</th>
                         <th style="width:10%">Merk</th>
-                        <th style="width:25%">Spesifikasi</th>
+                        <th style="width:10%">Spesifikasi</th>
+                        <th style="width:20%">Sumber</th>
                         <th style="width:5%">Aksi</th>
                       </tr>
                     </thead>
@@ -69,10 +70,11 @@
                         <tr>
                           <td class="text-right">{{ $loop->iteration }}</td>
                           <td>{{ $item->name }}</td>
-                          <td>{{ $item->uom }}</td>
                           <td class="text-right">{{ format_decimal($item->price) }}</td>
+                          <td>{{ $item->uom }}</td>
                           <td>{{ $item->brand }}</td>
                           <td>{{ $item->specification }}</td>
+                          <td>{{ $item->source }}</td>
                           <td>
                             <form class="inline" method="POST"
                               action="{{ url("/ahsp-mgr/base-items/$item->id") }}">

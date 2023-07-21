@@ -72,6 +72,7 @@ class BaseItemController extends Controller
             'category_id' => 'required',
             'group_id' => 'required',
             'price' => 'required',
+            'source' => 'required',
         ], [
             'name.required' => 'Nama item harus diisi.',
             'name.unique' => 'Nama item harus unik.',
@@ -81,6 +82,7 @@ class BaseItemController extends Controller
             'category_id.required' => 'Silahkan pilih kategori.',
             'group_id.required' => 'Silahkan pilih grup.',
             'price.required' => 'Harga harus diisi.',
+            'source.required' => 'Sumber data harus diisi.',
         ]);
 
         if ($validator->fails()) {
@@ -93,6 +95,7 @@ class BaseItemController extends Controller
         $data['uom'] = $request->uom;
         $data['brand'] = $request->brand;
         $data['specification'] = $request->specification;
+        $data['source'] = $request->source;
         $data['price'] = $request->price;
         $data['category_id'] = $request->category_id;
 

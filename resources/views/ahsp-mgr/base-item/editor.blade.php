@@ -99,6 +99,14 @@
                     @enderror
                   </div>
                   <div class="form-group">
+                    <label for="source">Sumber</label>
+                    <input type="text" class="form-control" id="source" name="source"
+                      placeholder="Sumber" value="{{ isset($data) ? $data->source : old('source') }}">
+                    @error('source')
+                      <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                  <div class="form-group">
                     <label for="price">Harga</label>
                     <input type="text" class="form-control" id="price" name="price" placeholder="Harga"
                       value="{{ isset($data) ? $data->price : old('price') }}">

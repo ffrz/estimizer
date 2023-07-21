@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('specification', 255);
             $table->tinyInteger('type', false, true)->default(0);
             $table->decimal('price', 12)->default(0);
+            $table->string('source', 255);
             $table->bigInteger('category_id')->unsigned()->nullable()->default(null);
             $table->bigInteger('group_id')->unsigned()->nullable()->default(null);
             $table->foreign('category_id')->references('id')->on('lib_base_item_categories');

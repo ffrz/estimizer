@@ -17,13 +17,24 @@ class BaseItemController extends Controller
     {
         $query = BaseItem::query();
         $groups = BaseItemGroup::orderBy('name', 'asc')->get();
-        $group_id = (int)$request->group_id;
-        $type = (int)$request->type;
+        $group_id = $request->group_id;
+        $type = $request->type;
+
+        if ($group_id == null) {
+            $group_id = $request->session()->get('ahsp-mgr.base-item.filter.group_id', 0);
+        }
+        if ($type == null) {
+            $type = $request->session()->get('ahsp-mgr.base-item.filter.type', 0);
+        }
+        
         if ($group_id > 0) {
             $query->where('group_id', '=', $group_id);
         }
         $query->where('type', '=', $type);
         $items = $query->orderBy('type', 'asc')->orderBy('name', 'asc')->get();
+
+        $request->session()->put('ahsp-mgr.base-item.filter.type', $type);
+        $request->session()->put('ahsp-mgr.base-item.filter.group_id', $group_id);
         
         return view('ahsp-mgr.base-item.index', compact('items', 'groups', 'group_id', 'type'));
     }
